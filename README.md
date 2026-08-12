@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="data/icons/hicolor/scalable/apps/dev.miguel.Switchboard.svg" width="112" alt="Switchboard">
+
 # Switchboard
 
 **A small GTK4 / libadwaita companion for [cardwire](https://github.com/OpenGamingCollective/cardwire) — switch GPU modes, see what is waking your dGPU, and keep it asleep.**
