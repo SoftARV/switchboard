@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Switchboard
+Comment=Switch GPU modes and keep your dGPU asleep
+Exec=switchboard
+Icon=dev.miguel.Switchboard
+Terminal=false
+Type=Application
+Categories=Utility;Settings;GTK;
+Keywords=gpu;cardwire;nvidia;hybrid;graphics;battery;power;dgpu;
+StartupNotify=true

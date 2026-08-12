@@ -1,0 +1,70 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $SwitchboardWindow : Adw.ApplicationWindow {
+  title: "Switchboard";
+  default-width: 460;
+  default-height: 640;
+  width-request: 360;
+  height-request: 400;
+
+  content: Adw.ToastOverlay toasts {
+    child: Adw.ToolbarView {
+      [top]
+      Adw.HeaderBar {
+        title-widget: Adw.ViewSwitcher {
+          stack: stack;
+          policy: wide;
+        };
+
+        [end]
+        MenuButton {
+          icon-name: "open-menu-symbolic";
+          menu-model: primary_menu;
+          primary: true;
+          tooltip-text: "Main Menu";
+        }
+      }
+
+      content: Adw.ViewStack stack {
+        Adw.ViewStackPage {
+          name: "status";
+          title: "Status";
+          icon-name: "video-display-symbolic";
+
+          child: Adw.StatusPage {
+            icon-name: "dev.miguel.Switchboard-symbolic";
+            title: "Status";
+            description: "Mode switcher and per-GPU state land here.";
+          };
+        }
+
+        Adw.ViewStackPage {
+          name: "activity";
+          title: "Activity";
+          icon-name: "view-list-symbolic";
+
+          child: Adw.StatusPage {
+            icon-name: "view-list-symbolic";
+            title: "Activity";
+            description: "Processes cardwire blocked land here.";
+          };
+        }
+      };
+    };
+  };
+}
+
+menu primary_menu {
+  section {
+    item {
+      label: "_About Switchboard";
+      action: "app.about";
+    }
+
+    item {
+      label: "_Quit";
+      action: "app.quit";
+    }
+  }
+}

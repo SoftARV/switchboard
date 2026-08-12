@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>dev.miguel.Switchboard</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <name>Switchboard</name>
+  <summary>Switch GPU modes and keep your dGPU asleep</summary>
+
+  <description>
+    <p>
+      A small companion app for cardwire. Switchboard talks to the cardwired
+      service over D-Bus to switch GPU modes, show what is waking your discrete
+      GPU, and keep it in its lowest power state.
+    </p>
+    <ul>
+      <li>Switch between Integrated, Hybrid and Smart modes</li>
+      <li>Per-GPU status: driver, live power state and a block toggle</li>
+      <li>A live feed of the processes cardwire blocked</li>
+      <li>Daemon preferences, including battery auto-switching</li>
+      <li>A tray icon showing the current mode at a glance</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">dev.miguel.Switchboard.desktop</launchable>
+
+  <url type="homepage">https://github.com/SoftARV/switchboard</url>
+  <url type="bugtracker">https://github.com/SoftARV/switchboard/issues</url>
+
+  <developer id="dev.miguel">
+    <name>Miguel Rincon</name>
+  </developer>
+
+  <content_rating type="oars-1.1"/>
+
+  <releases>
+    <release version="0.1.0" date="2026-08-12">
+      <description>
+        <p>First release.</p>
+      </description>
+    </release>
+  </releases>
+</component>

@@ -1,0 +1,54 @@
+conf = configuration_data()
+conf.set('APP_ID', app_id)
+conf.set('APP_PATH', app_path)
+conf.set('VERSION', meson.project_version())
+
+config_vala = configure_file(
+  input: 'config.vala.in',
+  output: 'config.vala',
+  configuration: conf,
+)
+
+blueprint_compiler = find_program('blueprint-compiler')
+
+# One target per file with an explicit output. A single batch-compile target
+# writing into a directory is not tracked reliably: other build steps touch
+# that directory, so ninja sees the output as newer than the input and
+# silently skips regenerating the .ui files.
+blueprint_files = {
+  'window.ui': 'ui/window.blp',
+}
+
+blueprints = []
+foreach output_name, source_name : blueprint_files
+  blueprints += custom_target(output_name,
+    input: files(source_name),
+    output: output_name,
+    command: [blueprint_compiler, 'compile', '--output', '@OUTPUT@', '@INPUT@'],
+  )
+endforeach
+
+resources = gnome.compile_resources('switchboard-resources',
+  'switchboard.gresource.xml',
+  source_dir: [meson.current_build_dir(), meson.current_source_dir()],
+  dependencies: blueprints,
+)
+
+sources = files(
+  'main.vala',
+  'application.vala',
+  'ui/window.vala',
+)
+
+executable('switchboard',
+  sources, config_vala, resources,
+  dependencies: [
+    dependency('glib-2.0', version: '>= 2.76'),
+    dependency('gobject-2.0'),
+    dependency('gio-2.0'),
+    dependency('gtk4', version: '>= 4.10'),
+    dependency('libadwaita-1', version: '>= 1.4'),
+  ],
+  vala_args: ['--gresourcesdir=' + meson.current_build_dir()],
+  install: true,
+)

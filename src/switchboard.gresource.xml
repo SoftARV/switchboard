@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/dev/miguel/Switchboard">
+    <file>style.css</file>
+    <file alias="icons/scalable/apps/dev.miguel.Switchboard.svg">../data/icons/hicolor/scalable/apps/dev.miguel.Switchboard.svg</file>
+    <file alias="icons/symbolic/apps/dev.miguel.Switchboard-symbolic.svg">../data/icons/hicolor/symbolic/apps/dev.miguel.Switchboard-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">window.ui</file>
+  </gresource>
+</gresources>
