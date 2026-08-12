@@ -5,5 +5,8 @@
     <file alias="icons/scalable/apps/dev.miguel.Switchboard.svg">../data/icons/hicolor/scalable/apps/dev.miguel.Switchboard.svg</file>
     <file alias="icons/symbolic/apps/dev.miguel.Switchboard-symbolic.svg">../data/icons/hicolor/symbolic/apps/dev.miguel.Switchboard-symbolic.svg</file>
     <file preprocess="xml-stripblanks">window.ui</file>
+    <file preprocess="xml-stripblanks">status-page.ui</file>
+    <file preprocess="xml-stripblanks">gpu-card.ui</file>
+    <file preprocess="xml-stripblanks">mode-tile.ui</file>
   </gresource>
 </gresources>

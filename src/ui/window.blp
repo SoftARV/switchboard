@@ -32,11 +32,7 @@ template $SwitchboardWindow : Adw.ApplicationWindow {
           title: "Status";
           icon-name: "video-display-symbolic";
 
-          child: Adw.StatusPage {
-            icon-name: "dev.miguel.Switchboard-symbolic";
-            title: "Status";
-            description: "Mode switcher and per-GPU state land here.";
-          };
+          child: Adw.Bin status_slot {};
         }
 
         Adw.ViewStackPage {

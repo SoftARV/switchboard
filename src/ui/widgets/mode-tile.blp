@@ -1,0 +1,41 @@
+using Gtk 4.0;
+
+template $SwitchboardModeTile : ToggleButton {
+  hexpand: true;
+
+  styles ["mode-tile"]
+
+  child: Overlay {
+    child: Box {
+      orientation: vertical;
+      spacing: 8;
+      halign: center;
+      valign: center;
+      margin-top: 18;
+      margin-bottom: 18;
+      margin-start: 10;
+      margin-end: 10;
+
+      Image tile_icon {
+        pixel-size: 32;
+      }
+
+      Label tile_title {
+        styles ["heading"]
+      }
+    };
+
+    [overlay]
+    Image tile_info {
+      icon-name: "help-about-symbolic";
+      pixel-size: 14;
+      halign: end;
+      valign: start;
+      margin-top: 7;
+      margin-end: 7;
+      has-tooltip: true;
+
+      styles ["dim-label"]
+    }
+  };
+}

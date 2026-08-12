@@ -17,6 +17,9 @@ blueprint_compiler = find_program('blueprint-compiler')
 # silently skips regenerating the .ui files.
 blueprint_files = {
   'window.ui': 'ui/window.blp',
+  'status-page.ui': 'ui/pages/status-page.blp',
+  'gpu-card.ui': 'ui/widgets/gpu-card.blp',
+  'mode-tile.ui': 'ui/widgets/mode-tile.blp',
 }
 
 blueprints = []
@@ -44,6 +47,9 @@ sources = files(
   'model/gpu-device.vala',
   'model/block-event.vala',
   'ui/window.vala',
+  'ui/pages/status-page.vala',
+  'ui/widgets/gpu-card.vala',
+  'ui/widgets/mode-tile.vala',
 )
 
 executable('switchboard',

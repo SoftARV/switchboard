@@ -1,0 +1,19 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $SwitchboardGpuCard : Adw.PreferencesGroup {
+
+  Adw.ActionRow power_row {
+    title: "Power state";
+
+    [suffix]
+    Label power_value {
+      styles ["dim-label"]
+    }
+  }
+
+  Adw.SwitchRow block_row {
+    title: "Blocked";
+    subtitle: "Hide this GPU from applications";
+  }
+}

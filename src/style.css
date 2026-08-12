@@ -1,3 +1,21 @@
-.gpu-card {
-  padding: 6px;
+.mode-tile {
+  padding: 0;
+  border-radius: 12px;
+  background-color: @card_bg_color;
+  box-shadow: inset 0 0 0 1px @borders;
+}
+
+.mode-tile:hover {
+  background-color: mix(@card_bg_color, @accent_bg_color, 0.08);
+}
+
+.mode-tile:checked {
+  background-color: @accent_bg_color;
+  color: @accent_fg_color;
+  box-shadow: none;
+}
+
+.mode-tile:checked .dim-label {
+  color: @accent_fg_color;
+  opacity: 0.75;
 }

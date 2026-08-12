@@ -1,5 +1,7 @@
 public class Switchboard.Application : Adw.Application {
 
+    private CardwireClient client;
+
     public Application () {
         Object (application_id: Config.APP_ID,
                 flags: ApplicationFlags.DEFAULT_FLAGS);
@@ -7,6 +9,9 @@ public class Switchboard.Application : Adw.Application {
 
     protected override void startup () {
         base.startup ();
+
+        client = new CardwireClient ();
+        client.start ();
 
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource (Config.APP_PATH + "/style.css");
@@ -52,6 +57,6 @@ public class Switchboard.Application : Adw.Application {
             return;
         }
 
-        new Window (this).present ();
+        new Window (this, client).present ();
     }
 }
