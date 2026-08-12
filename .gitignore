@@ -1,0 +1,13 @@
+/build/
+/_build/
+.cache/
+CLAUDE.md
+CLAUDE.local.md
+
+# makepkg working dirs and output. It also rewrites pkgver= in place on every
+# build; that line is a placeholder for a -git package, so do not commit it.
+/packaging/src/
+/packaging/pkg/
+/packaging/switchboard/
+/packaging/*.pkg.tar.*
+/packaging/*.log
