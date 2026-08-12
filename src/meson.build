@@ -37,6 +37,12 @@ resources = gnome.compile_resources('switchboard-resources',
 sources = files(
   'main.vala',
   'application.vala',
+  'probe.vala',
+  'dbus/interfaces.vala',
+  'dbus/cardwire-client.vala',
+  'model/gpu-mode.vala',
+  'model/gpu-device.vala',
+  'model/block-event.vala',
   'ui/window.vala',
 )
 
