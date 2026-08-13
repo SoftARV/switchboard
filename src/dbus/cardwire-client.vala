@@ -174,6 +174,16 @@ public class Switchboard.CardwireClient : Object {
             });
     }
 
+    public GpuDevice? find_by_id (uint id) {
+        for (uint i = 0; i < gpus.get_n_items (); i++) {
+            var dev = (GpuDevice) gpus.get_item (i);
+            if (dev.id == id) {
+                return dev;
+            }
+        }
+        return null;
+    }
+
     public GpuDevice? find (string path) {
         for (uint i = 0; i < gpus.get_n_items (); i++) {
             var dev = (GpuDevice) gpus.get_item (i);

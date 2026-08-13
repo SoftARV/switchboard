@@ -8,5 +8,7 @@
     <file preprocess="xml-stripblanks">status-page.ui</file>
     <file preprocess="xml-stripblanks">gpu-card.ui</file>
     <file preprocess="xml-stripblanks">mode-tile.ui</file>
+    <file preprocess="xml-stripblanks">activity-page.ui</file>
+    <file preprocess="xml-stripblanks">block-event-row.ui</file>
   </gresource>
 </gresources>

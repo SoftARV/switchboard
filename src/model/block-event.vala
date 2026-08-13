@@ -27,4 +27,12 @@ public class Switchboard.BlockEvent : Object {
     public string display_name () {
         return app_id == "" ? comm : app_id;
     }
+
+    public string when () {
+        var now = new DateTime.now_local ();
+        if (time.get_day_of_year () == now.get_day_of_year () && time.get_year () == now.get_year ()) {
+            return time.format ("%H:%M:%S");
+        }
+        return time.format ("%b %e  %H:%M");
+    }
 }

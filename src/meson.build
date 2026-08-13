@@ -20,6 +20,8 @@ blueprint_files = {
   'status-page.ui': 'ui/pages/status-page.blp',
   'gpu-card.ui': 'ui/widgets/gpu-card.blp',
   'mode-tile.ui': 'ui/widgets/mode-tile.blp',
+  'activity-page.ui': 'ui/pages/activity-page.blp',
+  'block-event-row.ui': 'ui/widgets/block-event-row.blp',
 }
 
 blueprints = []
@@ -48,8 +50,10 @@ sources = files(
   'model/block-event.vala',
   'ui/window.vala',
   'ui/pages/status-page.vala',
+  'ui/pages/activity-page.vala',
   'ui/widgets/gpu-card.vala',
   'ui/widgets/mode-tile.vala',
+  'ui/widgets/block-event-row.vala',
 )
 
 executable('switchboard',

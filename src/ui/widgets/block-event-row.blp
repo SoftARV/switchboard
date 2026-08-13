@@ -1,0 +1,18 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $SwitchboardBlockEventRow : Adw.ActionRow {
+
+  [prefix]
+  Image row_icon {
+    icon-name: "application-x-executable-symbolic";
+    pixel-size: 16;
+
+    styles ["dim-label"]
+  }
+
+  [suffix]
+  Label time_label {
+    styles ["dim-label", "numeric"]
+  }
+}

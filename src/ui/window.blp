@@ -40,11 +40,7 @@ template $SwitchboardWindow : Adw.ApplicationWindow {
           title: "Activity";
           icon-name: "view-list-symbolic";
 
-          child: Adw.StatusPage {
-            icon-name: "view-list-symbolic";
-            title: "Activity";
-            description: "Processes cardwire blocked land here.";
-          };
+          child: Adw.Bin activity_slot {};
         }
       };
     };

@@ -44,6 +44,24 @@ public class Switchboard.GpuDevice : Object {
         nvidia_minor = minor;
     }
 
+    // "NVIDIA GeForce RTX 5070 Laptop GPU" -> "GeForce RTX 5070"
+    public string short_name () {
+        var s = name.strip ();
+
+        if (vendor != "" && s.down ().has_prefix (vendor.down () + " ")) {
+            s = s.substring (vendor.length + 1);
+        }
+
+        foreach (var tail in new string[] { " Laptop GPU", " Graphics", " GPU" }) {
+            if (s.has_suffix (tail)) {
+                s = s.substring (0, s.length - tail.length);
+                break;
+            }
+        }
+
+        return s == "" ? name : s;
+    }
+
     public bool awake () {
         return power_state.has_prefix ("D0");
     }

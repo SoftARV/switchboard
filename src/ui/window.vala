@@ -2,6 +2,7 @@
 public class Switchboard.Window : Adw.ApplicationWindow {
 
     [GtkChild] private unowned Adw.Bin status_slot;
+    [GtkChild] private unowned Adw.Bin activity_slot;
 
     public CardwireClient client { get; construct; }
 
@@ -11,5 +12,6 @@ public class Switchboard.Window : Adw.ApplicationWindow {
 
     construct {
         status_slot.child = new StatusPage (client);
+        activity_slot.child = new ActivityPage (client);
     }
 }
