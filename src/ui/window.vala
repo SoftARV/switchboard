@@ -15,6 +15,12 @@ public class Switchboard.Window : Adw.ApplicationWindow {
     }
 
     construct {
+        // libadwaita hangs the stripe off `window.devel headerbar`, so the class
+        // belongs on the window and reaches the header bar by descent.
+        if (Config.PROFILE == "development") {
+            add_css_class ("devel");
+        }
+
         status_slot.child = new StatusPage (client);
         activity_slot.child = new ActivityPage (client);
 

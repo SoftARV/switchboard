@@ -1,0 +1,6 @@
+option('profile',
+  type: 'combo',
+  choices: ['default', 'development'],
+  value: 'default',
+  description: 'Development builds mark the window with the devel stripe',
+)

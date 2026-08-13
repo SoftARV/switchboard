@@ -2,6 +2,7 @@ conf = configuration_data()
 conf.set('APP_ID', app_id)
 conf.set('APP_PATH', app_path)
 conf.set('VERSION', meson.project_version())
+conf.set('PROFILE', get_option('profile'))
 
 config_vala = configure_file(
   input: 'config.vala.in',
