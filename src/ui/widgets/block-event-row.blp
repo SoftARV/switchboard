@@ -1,18 +1,42 @@
 using Gtk 4.0;
-using Adw 1;
 
-template $SwitchboardBlockEventRow : Adw.ActionRow {
+template $SwitchboardBlockEventRow : Box {
+  orientation: horizontal;
+  spacing: 12;
+  margin-top: 9;
+  margin-bottom: 9;
+  margin-start: 12;
+  margin-end: 12;
 
-  [prefix]
-  Image row_icon {
+  Image {
     icon-name: "application-x-executable-symbolic";
     pixel-size: 16;
+    valign: center;
 
     styles ["dim-label"]
   }
 
-  [suffix]
+  Box {
+    orientation: vertical;
+    hexpand: true;
+    valign: center;
+
+    Label name_label {
+      xalign: 0;
+      ellipsize: end;
+    }
+
+    Label detail_label {
+      xalign: 0;
+      ellipsize: end;
+
+      styles ["caption", "dim-label"]
+    }
+  }
+
   Label time_label {
-    styles ["dim-label", "numeric"]
+    valign: center;
+
+    styles ["caption", "numeric", "dim-label"]
   }
 }

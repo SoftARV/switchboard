@@ -41,10 +41,16 @@ template $SwitchboardActivityPage : Adw.Bin {
               styles ["dim-label", "caption"]
             }
 
-            ListBox list_box {
-              selection-mode: none;
+            // .boxed-list only matches GtkListBox (css node "list"), so the
+            // card look is a wrapper plus the list view's own separators.
+            Box {
+              orientation: vertical;
 
-              styles ["boxed-list"]
+              styles ["card", "events-card"]
+
+              ListView list_view {
+                show-separators: true;
+              }
             }
           };
         };

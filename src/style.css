@@ -1,12 +1,16 @@
+.events-card > listview {
+  background: none;
+}
+
 .mode-tile {
   padding: 0;
   border-radius: 12px;
   background-color: @card_bg_color;
-  box-shadow: inset 0 0 0 1px @borders;
+  box-shadow: 0 0 0 1px @card_shade_color;
 }
 
 .mode-tile:hover {
-  background-color: mix(@card_bg_color, @accent_bg_color, 0.08);
+  background-color: mix(@card_bg_color, @card_fg_color, 0.08);
 }
 
 .mode-tile:checked {

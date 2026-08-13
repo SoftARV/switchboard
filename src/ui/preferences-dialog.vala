@@ -6,17 +6,29 @@ public class Switchboard.PreferencesDialog : Adw.PreferencesDialog {
     [GtkChild] private unowned Adw.SwitchRow external_row;
     [GtkChild] private unowned Adw.SwitchRow auto_apply_row;
     [GtkChild] private unowned Adw.SwitchRow nvidia_row;
+    [GtkChild] private unowned Adw.SwitchRow tray_row;
+    [GtkChild] private unowned Adw.SwitchRow background_row;
+    [GtkChild] private unowned Adw.PreferencesGroup switching_group;
+    [GtkChild] private unowned Adw.PreferencesGroup advanced_group;
 
     public CardwireClient client { get; construct; }
+    public Settings prefs { get; construct; }
 
     private GpuMode[] combo_modes = {};
     private bool syncing = false;
 
-    public PreferencesDialog (CardwireClient client) {
-        Object (client: client);
+    public PreferencesDialog (CardwireClient client, Settings prefs) {
+        Object (client: client, prefs: prefs);
     }
 
     construct {
+        prefs.bind ("tray-icon", tray_row, "active", SettingsBindFlags.DEFAULT);
+        prefs.bind ("run-in-background", background_row, "active", SettingsBindFlags.DEFAULT);
+        background_row.sensitive = tray_row.active;
+        tray_row.notify["active"].connect (() => {
+            background_row.sensitive = tray_row.active;
+        });
+
         build_mode_list ();
         sync_all ();
 
@@ -44,10 +56,10 @@ public class Switchboard.PreferencesDialog : Adw.PreferencesDialog {
             ((DBusProxy) client.config).g_properties_changed.connect (sync_all);
         }
 
-        client.notify["available"].connect (() => {
-            sensitive = client.available;
-        });
-        sensitive = client.available;
+        // Only the daemon-backed groups follow the daemon. The app's own
+        // settings stay usable with cardwired down.
+        client.notify["available"].connect (sync_sensitivity);
+        sync_sensitivity ();
     }
 
     private void build_mode_list () {
@@ -102,6 +114,11 @@ public class Switchboard.PreferencesDialog : Adw.PreferencesDialog {
         battery_mode_row.sensitive = battery_row.active;
 
         syncing = false;
+    }
+
+    private void sync_sensitivity () {
+        switching_group.sensitive = client.available;
+        advanced_group.sensitive = client.available;
     }
 
     private void write_bool (string prop, bool val) {

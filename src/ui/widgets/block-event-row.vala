@@ -1,27 +1,28 @@
+// A plain Box rather than an Adw.ActionRow: rows live inside a Gtk.ListView,
+// which recycles them, and an ActionRow is a Gtk.ListBoxRow -- the wrong thing
+// to nest in a list view.
 [GtkTemplate (ui = "/dev/miguel/Switchboard/block-event-row.ui")]
-public class Switchboard.BlockEventRow : Adw.ActionRow {
+public class Switchboard.BlockEventRow : Gtk.Box {
 
+    [GtkChild] private unowned Gtk.Label name_label;
+    [GtkChild] private unowned Gtk.Label detail_label;
     [GtkChild] private unowned Gtk.Label time_label;
 
     public CardwireClient client { get; construct; }
-    public BlockEvent block_event { get; construct; }
 
-    public BlockEventRow (CardwireClient client, BlockEvent block_event) {
-        Object (client: client, block_event: block_event);
+    public BlockEventRow (CardwireClient client) {
+        Object (client: client);
     }
 
-    construct {
-        var gpu = client.find_by_id (block_event.gpu_id);
+    public void bind_event (BlockEvent ev) {
+        var gpu = client.find_by_id (ev.gpu_id);
 
-        title = block_event.display_name ();
-        subtitle = "%s · pid %u".printf (
-            gpu != null ? gpu.short_name () : "GPU %u".printf (block_event.gpu_id),
-            block_event.pid
+        name_label.label = ev.display_name ();
+        detail_label.label = "%s · pid %u".printf (
+            gpu != null ? gpu.short_name () : "GPU %u".printf (ev.gpu_id),
+            ev.pid
         );
-        time_label.label = block_event.when ();
-
-        if (gpu != null) {
-            tooltip_text = "%s\n%s · %s".printf (gpu.name, gpu.driver, gpu.pci);
-        }
+        time_label.label = ev.when ();
+        tooltip_text = gpu != null ? "%s\n%s · %s".printf (gpu.name, gpu.driver, gpu.pci) : null;
     }
 }

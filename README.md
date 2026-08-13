@@ -34,13 +34,39 @@ The tray needs a StatusNotifierItem host. On GNOME that is the
 ## Build
 
 ```sh
-meson setup build
-meson compile -C build
-./build/src/switchboard
+sudo pacman -S gtk4 libadwaita vala meson blueprint-compiler libdbusmenu-glib
 ```
 
 ```sh
-sudo pacman -S gtk4 libadwaita vala meson blueprint-compiler libdbusmenu-glib
+meson setup build
+meson compile -C build
+```
+
+### Running from the build tree
+
+Two environment variables are needed uninstalled. The GSettings schema is not installed yet, and
+the tray host is a separate process that resolves the icon through the icon theme rather than
+Switchboard's gresource:
+
+```sh
+GSETTINGS_SCHEMA_DIR=$PWD/build/data SWITCHBOARD_ICON_PATH=$PWD/data/icons ./build/src/switchboard
+```
+
+### Installed
+
+```sh
+sudo meson install -C build
+switchboard
+```
+
+### Checking the daemon without the UI
+
+`--probe` connects to `cardwired`, prints everything it can see and exits. It needs no environment
+variables and touches no GTK:
+
+```sh
+./build/src/switchboard --probe          # read-only
+./build/src/switchboard --probe write    # also round-trips one inert property
 ```
 
 ## Licence

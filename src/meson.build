@@ -11,6 +11,18 @@ config_vala = configure_file(
 
 blueprint_compiler = find_program('blueprint-compiler')
 
+# libdbusmenu's pkg-config name (dbusmenu-glib-0.4) does not match its vapi
+# (Dbusmenu-0.4), and meson hands valac --pkg <pkg-config name> for every
+# pkg-config dependency. Feeding the flags in raw keeps it an internal
+# dependency, so only the vapi below names the package.
+pkgconfig_exe = find_program('pkg-config')
+dbusmenu = declare_dependency(
+  compile_args: run_command(pkgconfig_exe, '--cflags', 'dbusmenu-glib-0.4',
+    check: true).stdout().strip().split(),
+  link_args: run_command(pkgconfig_exe, '--libs', 'dbusmenu-glib-0.4',
+    check: true).stdout().strip().split(),
+)
+
 # One target per file with an explicit output. A single batch-compile target
 # writing into a directory is not tracked reliably: other build steps touch
 # that directory, so ninja sees the output as newer than the input and
@@ -49,6 +61,8 @@ sources = files(
   'model/gpu-mode.vala',
   'model/gpu-device.vala',
   'model/block-event.vala',
+  'tray/status-notifier.vala',
+  'tray/tray-icon.vala',
   'ui/window.vala',
   'ui/preferences-dialog.vala',
   'ui/pages/status-page.vala',
@@ -66,6 +80,8 @@ executable('switchboard',
     dependency('gio-2.0'),
     dependency('gtk4', version: '>= 4.10'),
     dependency('libadwaita-1', version: '>= 1.4'),
+    dbusmenu,
+    meson.get_compiler('vala').find_library('Dbusmenu-0.4'),
   ],
   vala_args: ['--gresourcesdir=' + meson.current_build_dir()],
   install: true,

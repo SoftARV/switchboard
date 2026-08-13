@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="dev.miguel.Switchboard" path="/dev/miguel/Switchboard/">
+    <key name="tray-icon" type="b">
+      <default>true</default>
+      <summary>Show an icon in the system tray</summary>
+      <description>
+        Exports a StatusNotifierItem. Needs a host to pick it up: on GNOME that
+        means the AppIndicator extension. With no host the icon simply never
+        appears, which is why this defaults to on rather than being detected.
+      </description>
+    </key>
+
+    <key name="run-in-background" type="b">
+      <default>true</default>
+      <summary>Keep running when the window is closed</summary>
+      <description>
+        Closing the window hides it instead of quitting, so the tray icon stays
+        live. Ignored when tray-icon is off, since a background process with no
+        icon would be unreachable.
+      </description>
+    </key>
+
+    <key name="window-width" type="i">
+      <default>460</default>
+      <summary>Window width</summary>
+    </key>
+
+    <key name="window-height" type="i">
+      <default>640</default>
+      <summary>Window height</summary>
+    </key>
+
+    <key name="window-maximized" type="b">
+      <default>false</default>
+      <summary>Whether the window is maximized</summary>
+    </key>
+  </schema>
+</schemalist>

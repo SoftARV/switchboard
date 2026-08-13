@@ -111,8 +111,7 @@ public class Switchboard.CardwireClient : Object {
 
             dev.blocked = proxy.block;
             dev.launchable = proxy.launchable;
-            // the daemon returns this with a trailing newline
-            dev.power_state = proxy.power_state ().strip ();
+            dev.apply_power (proxy.power_state ());
 
             ((DBusProxy) proxy).g_properties_changed.connect (() => {
                 dev.blocked = proxy.block;
@@ -146,7 +145,7 @@ public class Switchboard.CardwireClient : Object {
             (conn, sender, path, iface, sig, args) => {
                 var dev = find (path);
                 if (dev != null) {
-                    dev.power_state = args.get_child_value (0).get_string ().strip ();
+                    dev.apply_power (args.get_child_value (0).get_string ());
                 }
             });
 
@@ -255,7 +254,7 @@ public class Switchboard.CardwireClient : Object {
                 continue;
             }
             try {
-                dev.power_state = proxy.power_state ().strip ();
+                dev.apply_power (proxy.power_state ());
             } catch (Error e) {
                 warning ("power state %s: %s", dev.path, e.message);
             }

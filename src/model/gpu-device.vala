@@ -62,17 +62,30 @@ public class Switchboard.GpuDevice : Object {
         return s == "" ? name : s;
     }
 
+    // PowerState() returns the raw sysfs value ("D3cold\n") while
+    // PowerStateChanged sends the daemon's Display form ("D3Cold"). Same daemon,
+    // different casing, so everything is normalised on the way in.
+    public void apply_power (string raw) {
+        switch (raw.strip ().down ()) {
+            case "d0": power_state = "D0"; break;
+            case "d1": power_state = "D1"; break;
+            case "d2": power_state = "D2"; break;
+            case "d3hot": power_state = "D3hot"; break;
+            case "d3cold": power_state = "D3cold"; break;
+            default: power_state = raw.strip (); break;
+        }
+    }
+
     public bool awake () {
-        return power_state.has_prefix ("D0");
+        return power_state == "D0";
     }
 
     public string power_label () {
-        if (power_state == "D3cold") {
-            return "Asleep · D3cold";
+        switch (power_state) {
+            case "D0": return "Awake · D0";
+            case "D3hot": return "Suspended · D3hot";
+            case "D3cold": return "Asleep · D3cold";
+            default: return power_state;
         }
-        if (power_state.has_prefix ("D0")) {
-            return "Awake · D0";
-        }
-        return power_state;
     }
 }

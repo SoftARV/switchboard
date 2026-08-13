@@ -8,7 +8,7 @@ template $SwitchboardPreferencesDialog : Adw.PreferencesDialog {
     icon-name: "preferences-system-symbolic";
     title: "Daemon";
 
-    Adw.PreferencesGroup {
+    Adw.PreferencesGroup switching_group {
       title: "Switching";
       description: "When cardwire changes mode on its own";
 
@@ -33,6 +33,20 @@ template $SwitchboardPreferencesDialog : Adw.PreferencesDialog {
     }
 
     Adw.PreferencesGroup {
+      title: "Application";
+
+      Adw.SwitchRow tray_row {
+        title: "Show a tray icon";
+        subtitle: "On GNOME this needs the AppIndicator extension";
+      }
+
+      Adw.SwitchRow background_row {
+        title: "Keep running in the background";
+        subtitle: "Closing the window hides it instead of quitting";
+      }
+    }
+
+    Adw.PreferencesGroup advanced_group {
       title: "Advanced";
 
       Adw.SwitchRow nvidia_row {

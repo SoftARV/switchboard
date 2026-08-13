@@ -1,14 +1,9 @@
 [GtkTemplate (ui = "/dev/miguel/Switchboard/activity-page.ui")]
 public class Switchboard.ActivityPage : Adw.Bin {
 
-    // The daemon's ring buffer holds ~4096 entries. Building a row for every one
-    // is not worth it, so only the newest are shown -- and the summary says so
-    // rather than quietly truncating.
-    private const uint MAX_ROWS = 250;
-
     [GtkChild] private unowned Gtk.Stack stack;
     [GtkChild] private unowned Gtk.Label summary;
-    [GtkChild] private unowned Gtk.ListBox list_box;
+    [GtkChild] private unowned Gtk.ListView list_view;
 
     public CardwireClient client { get; construct; }
 
@@ -21,10 +16,19 @@ public class Switchboard.ActivityPage : Adw.Bin {
             return ((BlockEvent) b).time.compare (((BlockEvent) a).time);
         });
 
-        var sorted = new Gtk.SortListModel (client.events, sorter);
-        var sliced = new Gtk.SliceListModel (sorted, 0, MAX_ROWS);
+        var factory = new Gtk.SignalListItemFactory ();
+        factory.setup.connect ((obj) => {
+            ((Gtk.ListItem) obj).child = new BlockEventRow (client);
+        });
+        factory.bind.connect ((obj) => {
+            var item = (Gtk.ListItem) obj;
+            ((BlockEventRow) item.child).bind_event ((BlockEvent) item.item);
+        });
 
-        list_box.bind_model (sliced, (item) => new BlockEventRow (client, (BlockEvent) item));
+        // The list view only builds the rows it can show, so the whole ring
+        // buffer can be listed without paying for rows nobody scrolls to.
+        list_view.model = new Gtk.NoSelection (new Gtk.SortListModel (client.events, sorter));
+        list_view.factory = factory;
 
         client.events.items_changed.connect ((pos, removed, added) => {
             sync ();
@@ -36,13 +40,8 @@ public class Switchboard.ActivityPage : Adw.Bin {
     private void sync () {
         var total = client.events.get_n_items ();
         stack.visible_child_name = total == 0 ? "empty" : "list";
-
-        if (total > MAX_ROWS) {
-            summary.label = "Showing the %u most recent of %u blocked processes".printf (MAX_ROWS, total);
-        } else if (total == 1) {
-            summary.label = "1 blocked process";
-        } else {
-            summary.label = "%u blocked processes".printf (total);
-        }
+        summary.label = total == 1
+            ? "1 blocked process"
+            : "%u blocked processes".printf (total);
     }
 }
