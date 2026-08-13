@@ -1,0 +1,44 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $SwitchboardPreferencesDialog : Adw.PreferencesDialog {
+  title: "Preferences";
+
+  Adw.PreferencesPage {
+    icon-name: "preferences-system-symbolic";
+    title: "Daemon";
+
+    Adw.PreferencesGroup {
+      title: "Switching";
+      description: "When cardwire changes mode on its own";
+
+      Adw.SwitchRow battery_row {
+        title: "Auto-switch on battery";
+        subtitle: "Change mode when the charger is unplugged";
+      }
+
+      Adw.ComboRow battery_mode_row {
+        title: "Mode on battery";
+      }
+
+      Adw.SwitchRow external_row {
+        title: "Auto-switch on external display";
+        subtitle: "Change mode when a monitor is plugged in";
+      }
+
+      Adw.SwitchRow auto_apply_row {
+        title: "Reapply GPU state at startup";
+        subtitle: "Restore the previous blocking state when the daemon starts";
+      }
+    }
+
+    Adw.PreferencesGroup {
+      title: "Advanced";
+
+      Adw.SwitchRow nvidia_row {
+        title: "Experimental NVIDIA blocking";
+        subtitle: "Blocks additional NVIDIA device nodes. Experimental";
+      }
+    }
+  }
+}

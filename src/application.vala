@@ -21,6 +21,12 @@ public class Switchboard.Application : Adw.Application {
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
 
+        var prefs_action = new SimpleAction ("preferences", null);
+        prefs_action.activate.connect (() => {
+            new PreferencesDialog (client).present (active_window);
+        });
+        add_action (prefs_action);
+
         var about_action = new SimpleAction ("about", null);
         about_action.activate.connect (() => {
             show_about ();
@@ -33,6 +39,7 @@ public class Switchboard.Application : Adw.Application {
         });
         add_action (quit_action);
 
+        set_accels_for_action ("app.preferences", { "<Control>comma" });
         set_accels_for_action ("app.about", { "F1" });
         set_accels_for_action ("app.quit", { "<Control>q" });
     }

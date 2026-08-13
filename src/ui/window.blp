@@ -50,6 +50,11 @@ template $SwitchboardWindow : Adw.ApplicationWindow {
 menu primary_menu {
   section {
     item {
+      label: "_Preferences";
+      action: "app.preferences";
+    }
+
+    item {
       label: "_About Switchboard";
       action: "app.about";
     }

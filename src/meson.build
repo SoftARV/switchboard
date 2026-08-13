@@ -22,6 +22,7 @@ blueprint_files = {
   'mode-tile.ui': 'ui/widgets/mode-tile.blp',
   'activity-page.ui': 'ui/pages/activity-page.blp',
   'block-event-row.ui': 'ui/widgets/block-event-row.blp',
+  'preferences-dialog.ui': 'ui/preferences-dialog.blp',
 }
 
 blueprints = []
@@ -49,6 +50,7 @@ sources = files(
   'model/gpu-device.vala',
   'model/block-event.vala',
   'ui/window.vala',
+  'ui/preferences-dialog.vala',
   'ui/pages/status-page.vala',
   'ui/pages/activity-page.vala',
   'ui/widgets/gpu-card.vala',
